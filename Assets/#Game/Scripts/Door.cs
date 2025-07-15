@@ -4,21 +4,27 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    public CollectionManager collectionManager;
+    [SerializeField] private int requiredKeys = 2;
+    [SerializeField] private CollectionManager collectionManager;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            if (collectionManager.GetKeyCount() > 0)
+            if (collectionManager.GetKeyCount() >= requiredKeys)
             {
-                collectionManager.UseKey();
+                for (int i = 0; i < requiredKeys; i++)
+                {
+                    collectionManager.UseKey();
+                }
+
                 OpenDoor();
             }
         }
         else
         {
-            Debug.Log("Need key to open the door");
+            Debug.Log($"Need {requiredKeys} keys to open the door. You have {collectionManager.GetKeyCount()}.");
+            //ini gatau kenapa debugnya gak nyala
         }
     }
     private void OpenDoor()

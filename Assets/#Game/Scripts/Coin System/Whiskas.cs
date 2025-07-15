@@ -3,14 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Whiskas : MonoBehaviour, ICollectible
+public class Whiskas : MonoBehaviour
 {
-    public static event Action OnWhiskasCollected;
+    [SerializeField] private float timeBonus = 10f;
 
-    public void Collect()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        OnWhiskasCollected?.Invoke();
-        Debug.Log("whiskas collected!");
-        Destroy(gameObject);
+        if (collision.CompareTag("Player"))
+        {
+            Timer timer = FindObjectOfType<Timer>();
+            if (timer != null)
+            {
+                timer.AddTime(timeBonus);
+                Debug.Log($"Whiskas powerup collected! add{timeBonus} seconds");
+            }
+
+            Destroy(gameObject);
+        }
     }
 }

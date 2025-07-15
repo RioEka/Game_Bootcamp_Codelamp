@@ -13,21 +13,21 @@ public class CollectionManager : MonoBehaviour
 
     private void OnEnable()
     {
-        Whiskas.OnWhiskasCollected += WhiskasCollected;
+        //Whiskas.OnWhiskasCollected += WhiskasCollected;
         Key.OnKeyCollected += KeyCollected;
     }
 
     private void OnDisable()
     {
-        Whiskas.OnWhiskasCollected -= WhiskasCollected;
+        //Whiskas.OnWhiskasCollected -= WhiskasCollected;
         Key.OnKeyCollected -= KeyCollected;
     }
 
-    private void WhiskasCollected()
-    {
-        numWhiskasCollected++;
-        whiskasUI.text = numWhiskasCollected.ToString();
-    }
+    //private void WhiskasCollected()
+    //{
+    //    numWhiskasCollected++;
+    //    whiskasUI.text = numWhiskasCollected.ToString();
+    //}
 
     private void KeyCollected()
     {
