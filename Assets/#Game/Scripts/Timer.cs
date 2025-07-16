@@ -8,6 +8,7 @@ public class Timer : MonoBehaviour
     [SerializeField] TextMeshProUGUI timerText;
     [SerializeField] float remainingTime;
     private bool isRed = false;
+    private bool gameEnded = false;
     //biar teksnya merah pas mau abis waktunya
 
 
@@ -21,8 +22,11 @@ public class Timer : MonoBehaviour
             isRed = false;
         }
     }
- 
 
+    public float GetRemainingTime()
+    {
+        return remainingTime;
+    }
 
     void Update()
     {
@@ -33,18 +37,30 @@ public class Timer : MonoBehaviour
             {
                 timerText.color = Color.red;
                 isRed = true;
-                }
+            }
         }
 
         else
         {
             remainingTime = 0;
+            if (!gameEnded)
+            {
+                gameEnded = true;
+                GameOver();
+            }
             //GameOver();
             //timerText.color = Color.red;
         }
-        
+
         int minutes = Mathf.FloorToInt(remainingTime / 60);
         int seconds = Mathf.FloorToInt(remainingTime % 60);
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
+    private void GameOver()
+    {
+        int deaths = DeathCountManager.Instance.GetDeathCount();
+        //isWin = false krn waktu habis
+        FindObjectOfType<ResultWindowController>().ShowResult(0, deaths, false);
     }
 }

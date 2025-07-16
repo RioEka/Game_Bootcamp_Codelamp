@@ -5,8 +5,9 @@ using TMPro;
 
 public class CollectionManager : MonoBehaviour
 {
-    public TextMeshProUGUI whiskasUI;
-    int numWhiskasCollected = 0;
+    //whiskas gajadi ditampilin
+    //public TextMeshProUGUI whiskasUI;
+    //int numWhiskasCollected = 0;
 
     public TextMeshProUGUI keyUI;
     int numKeyCollected = 0;

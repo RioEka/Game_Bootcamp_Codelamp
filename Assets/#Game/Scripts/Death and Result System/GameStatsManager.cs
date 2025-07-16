@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using TMPro;
 
 //ini buat ngatur sistem death counts nya
-public class GameStatsManager : MonoBehaviour
+public class DeathCountManager : MonoBehaviour
 {
-    public static GameStatsManager Instance;
+    public static DeathCountManager Instance;
 
     public int deathCount = 0;
     [SerializeField] private TextMeshProUGUI deathText;

@@ -30,6 +30,10 @@ public class Door : MonoBehaviour
     private void OpenDoor()
     {
         Debug.Log("Door opened!");
+        float timeLeft = FindObjectOfType<Timer>().GetRemainingTime();
+        int deaths = DeathCountManager.Instance.GetDeathCount();
+
+        FindObjectOfType<ResultWindowController>().ShowResult(timeLeft, deaths, true);
         //Destroy(gameObject);
         //belum nambahin konsidi menang
     }
