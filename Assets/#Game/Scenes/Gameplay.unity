@@ -457,6 +457,7 @@ GameObject:
   - component: {fileID: 243368834}
   - component: {fileID: 243368836}
   - component: {fileID: 243368837}
+  - component: {fileID: 243368838}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -655,6 +656,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 348112d03556b0c4581fd9f17f223d54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &243368838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243368829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 094cde5ffa2e20e4d9debaa952a8c338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &264521619
@@ -970,7 +983,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6349629003154909697, guid: b22d2f2d003ae0b49acc8b27a7ae08e6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.83
+      value: -6.173
       objectReference: {fileID: 0}
     - target: {fileID: 6349629003154909697, guid: b22d2f2d003ae0b49acc8b27a7ae08e6, type: 3}
       propertyPath: m_LocalPosition.y
