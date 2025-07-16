@@ -65,6 +65,7 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             DeathCountManager.Instance.AddDeath();
+<<<<<<< Updated upstream
             // Ambil komponen PlayerRespawn dari objek pemain
             PlayerRespawn playerRespawn = collision.gameObject.GetComponent<PlayerRespawn>();
 
@@ -73,6 +74,10 @@ public class Enemy : MonoBehaviour
             {
                 playerRespawn.Respawn();
             }
+=======
+
+            Destroy(gameObject);
+>>>>>>> Stashed changes
         }
     }
 

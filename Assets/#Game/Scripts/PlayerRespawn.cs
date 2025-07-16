@@ -1,7 +1,13 @@
+<<<<<<< Updated upstream
+=======
+using System.Collections;
+using System.Collections.Generic;
+>>>>>>> Stashed changes
 using UnityEngine;
 
 public class PlayerRespawn : MonoBehaviour
 {
+<<<<<<< Updated upstream
     private Vector3 respawnPoint; // Variabel untuk menyimpan posisi respawn
 
     void Start()
@@ -36,3 +42,17 @@ public class PlayerRespawn : MonoBehaviour
         }
     }
 }
+=======
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+>>>>>>> Stashed changes
