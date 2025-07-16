@@ -369,7 +369,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 2
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: db164d7a9bb27444495e5461902bf9cd, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -503,7 +503,7 @@ Animator:
   m_GameObject: {fileID: 243368829}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ccbbb956c7cdb6a4690ce53986716c8e, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0c7adf272f14d7d458c3aae5acb4a80e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -528,6 +528,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   jumpForce: 10
+  fallMultiplier: 2.5
   groundCheck: {fileID: 1323628659}
   groundCheckRadius: 0.1
   groundLayer:
