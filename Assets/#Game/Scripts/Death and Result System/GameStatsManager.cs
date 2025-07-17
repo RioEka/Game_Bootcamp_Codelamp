@@ -26,7 +26,7 @@ public class DeathCountManager : MonoBehaviour
     public void AddDeath()
     {
         deathCount++;
-        deathText.text = $"Deaths: {deathCount}";
+        deathText.text = $"{deathCount}";
     }
 
     public int GetDeathCount()

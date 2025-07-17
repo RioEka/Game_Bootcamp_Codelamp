@@ -8,11 +8,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject settingsMenu;
     [SerializeField] GameObject LevelSelection;
     [SerializeField] GameObject Credits;
+    [SerializeField] GameObject Bg;
 
     public void OpenMainMenu()
     {
         closeAllMenus();
         mainMenu.SetActive(true);
+        Bg.SetActive(true);
     }
     public void OpenSettingsMenu()
     {
@@ -39,5 +41,6 @@ public class UIManager : MonoBehaviour
         settingsMenu.SetActive(false);
         LevelSelection.SetActive(false);
         Credits.SetActive(false);
+        Bg.SetActive(false);
     }
 }

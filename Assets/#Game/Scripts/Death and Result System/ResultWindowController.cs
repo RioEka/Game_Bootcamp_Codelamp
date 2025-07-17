@@ -67,6 +67,6 @@ public class ResultWindowController : MonoBehaviour
     public void OnMainMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("LevelSelection");
     }
 }
