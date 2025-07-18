@@ -20,10 +20,15 @@ public class ResultWindowController : MonoBehaviour
 
     public void ShowResult(float remainingTime, int deathCount, bool isWin)
     {
+        AudioManager.Instance.StopBGM();
+
         int starCount = 0;
 
         if (isWin)
         {
+
+            AudioManager.Instance.PlayWin(); //SFX menang
+
             starCount = 1;
 
             if (remainingTime > 10 && deathCount < 5)
@@ -41,6 +46,9 @@ public class ResultWindowController : MonoBehaviour
         }
         else
         {
+
+            AudioManager.Instance.PlayLost(); // SFX kalah
+
             headerText.text = "Nice Try!";
             nextButton.gameObject.SetActive(false);
             restartButton.gameObject.SetActive(true);
@@ -66,6 +74,9 @@ public class ResultWindowController : MonoBehaviour
     public void OnRestart()
     {
         Time.timeScale = 1f;
+
+        SceneManager.sceneLoaded += OnSceneReloaded;
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -73,5 +84,14 @@ public class ResultWindowController : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
+    }
+
+    private void OnSceneReloaded(Scene scene, LoadSceneMode mode)
+    {
+        // Hentikan langganan biar nggak dobel
+        SceneManager.sceneLoaded -= OnSceneReloaded;
+
+        // Mulai ulang BGM
+        AudioManager.Instance.PlayBGM();
     }
 }

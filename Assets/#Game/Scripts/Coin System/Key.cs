@@ -9,6 +9,8 @@ public class Key : MonoBehaviour, ICollectible
 
     public void Collect()
     {
+        AudioManager.Instance.PlayKey();
+
         OnKeyCollected?.Invoke();
         Debug.Log("Key collected!");
         Destroy(gameObject);

@@ -14,6 +14,8 @@ public class Player_Control : MonoBehaviour
     private SpriteRenderer flip;
     private Rigidbody2D rb;
     private bool isGrounded = false;
+    //private bool hasJumped = false;
+
 
     // Variabel untuk menyimpan gravitasi dasar
     private float baseGravityScale;
@@ -50,14 +52,31 @@ public class Player_Control : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+
+            AudioManager.Instance.PlayJump();
+
         }
 
         // >> LOGIKA VARIABLE JUMP DITAMBAHKAN DI SINI <<
         // Jika tombol lompat DILEPAS saat sedang naik, potong ketinggian lompatan
         if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
         {
+
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+
         }
+
+        // === SFX WALKING ===
+        if (Mathf.Abs(movement.x) > 0.01f && isGrounded)
+        {
+            AudioManager.Instance.StartWalking();
+        }
+        else
+        {
+            AudioManager.Instance.StopWalking();
+        }
+
+
     }
 
     void FixedUpdate()
