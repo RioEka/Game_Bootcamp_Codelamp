@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class ResultWindowController : MonoBehaviour
 {
     [SerializeField] private GameObject resultPanel;
+    [SerializeField] private GameObject resultPanelWin;
+    [SerializeField] private GameObject resultPanelLose;
     [SerializeField] private Image[] stars;
     [SerializeField] private Sprite fullstar, emptyStar;
     [SerializeField] private TMP_Text headerText;
@@ -29,24 +31,27 @@ public class ResultWindowController : MonoBehaviour
 
             if (remainingTime > 15 && deathCount == 0)
                 starCount = 3;
-        
+
 
             headerText.text = "You Did It!";
             nextButton.gameObject.SetActive(true);
             restartButton.gameObject.SetActive(false);
+            resultPanelWin.SetActive(true);
+            resultPanelLose.SetActive(false);
         }
         else
         {
             headerText.text = "Nice Try!";
             nextButton.gameObject.SetActive(false);
             restartButton.gameObject.SetActive(true);
+            resultPanelLose.SetActive(true);
+            resultPanelWin.SetActive(false);
         }
 
         for (int i = 0; i < stars.Length; i++)
         {
             stars[i].sprite = (i < starCount) ? fullstar : emptyStar;
         }
-
         resultPanel.SetActive(true);
         Time.timeScale = 0f;//not really sure tapi katanya biar gamenya kepause
 
@@ -67,6 +72,6 @@ public class ResultWindowController : MonoBehaviour
     public void OnMainMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("LevelSelection");
+        SceneManager.LoadScene("MainMenu");
     }
 }
