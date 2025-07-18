@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -42,5 +43,12 @@ public class UIManager : MonoBehaviour
         LevelSelection.SetActive(false);
         Credits.SetActive(false);
         Bg.SetActive(false);
+    }
+
+    public void LoadLevels(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+        Time.timeScale = 1f; //
+        
     }
 }
