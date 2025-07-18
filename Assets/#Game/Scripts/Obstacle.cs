@@ -9,6 +9,11 @@ public class Obstacle : MonoBehaviour
         // Cek apakah yang ditabrak adalah pemain
         if (collision.gameObject.CompareTag("Player"))
         {
+
+            AudioManager.Instance.PlayDamage();
+
+            FindObjectOfType<ScreenFlash>().Flash();
+
             DeathCountManager.Instance.AddDeath();
             // Ambil komponen PlayerRespawn dari objek pemain
             PlayerRespawn playerRespawn = collision.gameObject.GetComponent<PlayerRespawn>();

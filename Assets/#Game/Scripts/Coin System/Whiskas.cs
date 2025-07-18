@@ -11,6 +11,9 @@ public class Whiskas : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+
+            AudioManager.Instance.PlayPowerup();
+
             Timer timer = FindObjectOfType<Timer>();
             if (timer != null)
             {
