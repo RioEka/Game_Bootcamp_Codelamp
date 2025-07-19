@@ -1,5 +1,6 @@
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
@@ -37,17 +38,41 @@ public class AudioManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        PlayBGM();
-
+    }
+    
+    private void OnEnable()
+    {
+        //daftar event listener untuk sceneLoaded
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    private void Start()
+    private void OnDisable()
     {
-        if (!musicSource.isPlaying)
+        //unsubscribe biar gak error saat destroy
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        //saat masuk ke main menu, stop semua suara jalan
+        if (scene.name == "MainMenu")
         {
-            PlayBGM();
+            StopWalking();
+            StopBGM();
+            
+            //biar sfx nya nyala lagi
+            SFXSource.mute = false;
+            SFXSource.volume = 1f;
         }
-        
+        //ini nama game scene nya depannya harus "Level"
+        else if (scene.name.StartsWith("Level"))
+        {
+            if (!musicSource.isPlaying)
+            {
+                PlayBGM();
+            }
+
+        }
     }
 
     //Musik BGM
@@ -64,14 +89,28 @@ public class AudioManager : MonoBehaviour
         musicSource.Play();
     }
 
+    public void StopBGM()
+    {
+        if (musicSource.isPlaying)
+        {
+            musicSource.Stop();
+        }
+    }
+
     //SFX
     public void PlaySFX(AudioClip clip)
     {
         if (clip != null)
         {
+            Debug.Log("Playing SFX: " + clip.name + " | Source Volume: " + SFXSource.volume + " | Mute: " + SFXSource.mute);
             SFXSource.PlayOneShot(clip);
         }
+        else
+        {
+            Debug.LogWarning("Clip SFX kosong!");
+        }
     }
+
 
     public void PlayDamage() => PlaySFX(damage);
     public void PlayKey() => PlaySFX(key);
@@ -99,12 +138,6 @@ public class AudioManager : MonoBehaviour
         {
             walkingSource.Stop();
         }
-    }
-
-    public void StopBGM()
-    {
-        if (musicSource.isPlaying)
-            musicSource.Stop();
     }
 
 }

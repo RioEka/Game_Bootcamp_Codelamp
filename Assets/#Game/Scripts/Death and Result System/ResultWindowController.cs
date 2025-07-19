@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
@@ -20,6 +18,9 @@ public class ResultWindowController : MonoBehaviour
 
     public void ShowResult(float remainingTime, int deathCount, bool isWin)
     {
+
+        Player_Control.isGamePaused = true;//buat ngepause walking nya
+
         AudioManager.Instance.StopBGM();
 
         int starCount = 0;
@@ -61,6 +62,10 @@ public class ResultWindowController : MonoBehaviour
             stars[i].sprite = (i < starCount) ? fullstar : emptyStar;
         }
         resultPanel.SetActive(true);
+
+        Player_Control.isGamePaused = true; // <== stop walking
+        AudioManager.Instance.StopWalking(); // <== stop walking
+
         Time.timeScale = 0f;//not really sure tapi katanya biar gamenya kepause
 
     }
@@ -68,11 +73,15 @@ public class ResultWindowController : MonoBehaviour
     //Not really sure (i suppose it has to be written from the scene name?) imma check later
     public void OnNextLevel()
     {
+        AudioManager.Instance?.PlayClick();
+        Player_Control.isGamePaused = false;
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
     public void OnRestart()
     {
+        AudioManager.Instance?.PlayClick();
+        Player_Control.isGamePaused = false;
         Time.timeScale = 1f;
 
         SceneManager.sceneLoaded += OnSceneReloaded;
@@ -82,12 +91,15 @@ public class ResultWindowController : MonoBehaviour
 
     public void OnMainMenu()
     {
+        AudioManager.Instance?.PlayClick();
+        Player_Control.isGamePaused = false;
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
     }
 
     private void OnSceneReloaded(Scene scene, LoadSceneMode mode)
     {
+        Player_Control.isGamePaused = false;
         // Hentikan langganan biar nggak dobel
         SceneManager.sceneLoaded -= OnSceneReloaded;
 

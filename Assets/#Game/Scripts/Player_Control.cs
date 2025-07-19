@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player_Control : MonoBehaviour
 {
+    public static bool isGamePaused = false;
     [SerializeField] public float moveSpeed;
     public float jumpForce = 5f;
     // Variabel untuk mengontrol gravitasi saat jatuh
@@ -33,8 +35,16 @@ public class Player_Control : MonoBehaviour
         baseGravityScale = rb.gravityScale;
     }
 
+
     private void Update()
     {
+
+        // Hentikan input kalau bukan di Level scene
+        if (!SceneManager.GetActiveScene().name.StartsWith("Level"))
+            return;
+
+        if (isGamePaused) return;// kalau pause, langsung skip Update
+
         movement.x = Input.GetAxis("Horizontal");
 
         // Set run untuk transisi animasi
