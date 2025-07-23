@@ -184,7 +184,7 @@ MonoBehaviour:
   powerup: {fileID: 8300000, guid: c4ce8a91e01da574fbb4b383dcfd61da, type: 3}
   walking: {fileID: 8300000, guid: a148ca9ccbdf65f498a2676ee5c72f2d, type: 3}
   jump: {fileID: 8300000, guid: 51724ab351c52f340b111c6590644870, type: 3}
-  click: {fileID: 8300000, guid: 77111e12425090949936356386bdf155, type: 3}
+  click: {fileID: 8300000, guid: 8f4e61fc823302240951644555d1ce4f, type: 3}
   win: {fileID: 8300000, guid: a461396c8330c0d44b742b9bd3104f5c, type: 3}
   lost: {fileID: 8300000, guid: 472f44a56bbf85b42bdcf70ea066cb15, type: 3}
 --- !u!1 &7920246958473617693
