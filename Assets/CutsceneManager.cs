@@ -66,6 +66,9 @@ public class CutsceneManager : MonoBehaviour
     public void SkipCutscene()
     {
         if (isSkipping) return;
+
+        AudioManager.Instance?.PlayClick();
+
         isSkipping = true;
         StopAllCoroutines();
         LoadNextScene();

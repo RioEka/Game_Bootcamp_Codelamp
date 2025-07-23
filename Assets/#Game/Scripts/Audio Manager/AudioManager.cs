@@ -71,11 +71,18 @@ public class AudioManager : MonoBehaviour
         }
         else if (sceneName.StartsWith("level"))
         {
-            if (bgm != null && musicSource.clip != bgm)
+            if (bgm != null)
             {
-                musicSource.clip = bgm;
-                musicSource.loop = true;
-                musicSource.Play();
+                if (musicSource.clip != bgm)
+                {
+                    musicSource.clip = bgm;
+                    musicSource.loop = true;
+                }
+
+                if (!musicSource.isPlaying)
+                {
+                    musicSource.Play();
+                }
             }
         }
     }
