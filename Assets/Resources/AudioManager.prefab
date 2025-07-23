@@ -179,6 +179,7 @@ MonoBehaviour:
   SFXSource: {fileID: 1643489160877194146}
   walkingSource: {fileID: 4242354208337543779}
   bgm: {fileID: 8300000, guid: 03e75cfeb80e5ce4db8c0880c4f175cd, type: 3}
+  menuAndCutsceneBGM: {fileID: 8300000, guid: 0f2e61ae4712e134793bf020a01a17ff, type: 3}
   damage: {fileID: 8300000, guid: bddbc4706da62bf4a8f0568690e21fa1, type: 3}
   key: {fileID: 8300000, guid: 8f9bab87fea9dc54fb250ddcd129b822, type: 3}
   powerup: {fileID: 8300000, guid: c4ce8a91e01da574fbb4b383dcfd61da, type: 3}

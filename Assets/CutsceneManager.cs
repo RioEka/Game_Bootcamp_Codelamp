@@ -14,49 +14,41 @@ public class CutsceneManager : MonoBehaviour
     [Header("UI References")]
     public Image cutsceneImage;
     public CanvasGroup canvasGroup;
+    public Button skipButton;
 
-    private const string cutsceneKey = "HasSeenIntroCutscene";
+    private bool isSkipping = false;
 
     private void Start()
     {
-        Debug.Log("CutsceneManager Started");
-
-        // Hanya untuk testing di Editor: reset key biar cutscene muncul terus
-        #if UNITY_EDITOR
-        PlayerPrefs.DeleteKey(cutsceneKey);
-        #endif
-
-        if (PlayerPrefs.HasKey(cutsceneKey))
-        {
-            Debug.Log("Cutscene already played. Skipping...");
-            SceneManager.LoadScene(nextSceneName);
-            return;
-        }
-
-        Debug.Log("Playing cutscene...");
+        skipButton.onClick.AddListener(SkipCutscene);
         StartCoroutine(PlayCutscene());
     }
 
     IEnumerator PlayCutscene()
     {
-        PlayerPrefs.SetInt(cutsceneKey, 1);
-
         for (int i = 0; i < cutsceneSlides.Length; i++)
         {
+            if (isSkipping) yield break;
+
             cutsceneImage.sprite = cutsceneSlides[i];
 
-            // Fade In
             yield return StartCoroutine(FadeCanvas(0f, 1f));
 
-            // Wait
-            yield return new WaitForSeconds(slideDuration);
+            float timer = 0f;
+            while (timer < slideDuration)
+            {
+                if (isSkipping) yield break;
+                timer += Time.deltaTime;
+                yield return null;
+            }
 
-            // Fade Out
             yield return StartCoroutine(FadeCanvas(1f, 0f));
         }
 
-        // Load next scene
-        SceneManager.LoadScene(nextSceneName);
+        if (!isSkipping)
+        {
+            LoadNextScene();
+        }
     }
 
     IEnumerator FadeCanvas(float from, float to)
@@ -69,5 +61,18 @@ public class CutsceneManager : MonoBehaviour
             yield return null;
         }
         canvasGroup.alpha = to;
+    }
+
+    public void SkipCutscene()
+    {
+        if (isSkipping) return;
+        isSkipping = true;
+        StopAllCoroutines();
+        LoadNextScene();
+    }
+
+    private void LoadNextScene()
+    {
+        SceneManager.LoadScene(nextSceneName);
     }
 }

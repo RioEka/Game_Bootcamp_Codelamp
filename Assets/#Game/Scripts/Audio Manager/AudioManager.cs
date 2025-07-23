@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
@@ -11,11 +10,12 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource SFXSource;
     [SerializeField] AudioSource walkingSource;
 
-    [Header("------- Music------- ")]
-    public AudioClip bgm;
+    [Header("------- Music -------")]
+    public AudioClip bgm; // untuk Level
+    [Tooltip("Digunakan untuk MainMenu dan Cutscene")]
+    public AudioClip menuAndCutsceneBGM;
 
     [Header("------- Audio Clip ------")]
-    //public AudioClip background;
     public AudioClip damage;
     public AudioClip key;
     public AudioClip powerup;
@@ -25,10 +25,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip win;
     public AudioClip lost;
 
-
     private void Awake()
     {
-        //singelton setup
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -37,56 +35,65 @@ public class AudioManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-
     }
-    
+
     private void OnEnable()
     {
-        //daftar event listener untuk sceneLoaded
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
     {
-        //unsubscribe biar gak error saat destroy
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        //saat masuk ke main menu, stop semua suara jalan
-        if (scene.name == "MainMenu")
+        StopWalking();
+        UpdateBGMForScene(scene.name);
+    }
+
+    private void UpdateBGMForScene(string sceneName)
+    {
+        sceneName = sceneName.ToLower();
+
+        if (sceneName == "mainmenu" || sceneName.Contains("cutscene"))
         {
-            StopWalking();
-            StopBGM();
-            
-            //biar sfx nya nyala lagi
+            if (musicSource.clip != menuAndCutsceneBGM)
+            {
+                musicSource.clip = menuAndCutsceneBGM;
+                musicSource.loop = true;
+                musicSource.Play();
+            }
+
             SFXSource.mute = false;
             SFXSource.volume = 1f;
         }
-        //ini nama game scene nya depannya harus "Level"
-        else if (scene.name.StartsWith("Level"))
+        else if (sceneName.StartsWith("level"))
         {
-            if (!musicSource.isPlaying)
+            if (bgm != null && musicSource.clip != bgm)
             {
-                PlayBGM();
+                musicSource.clip = bgm;
+                musicSource.loop = true;
+                musicSource.Play();
             }
-
         }
     }
 
-    //Musik BGM
     public void PlayBGM()
     {
-        if (bgm == null)
+        if (bgm == null) return;
+
+        if (musicSource.clip != bgm)
         {
-            //Debug.LogWarning("BGM clip belum diassign!");
-            return;
+            musicSource.clip = bgm;
+            musicSource.loop = true;
         }
 
-        musicSource.clip = bgm;
-        musicSource.loop = true;
-        musicSource.Play();
+        if (!musicSource.isPlaying)
+        {
+            musicSource.Play();
+        }
     }
 
     public void StopBGM()
@@ -97,12 +104,11 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    //SFX
     public void PlaySFX(AudioClip clip)
     {
         if (clip != null)
         {
-            Debug.Log("Playing SFX: " + clip.name + " | Source Volume: " + SFXSource.volume + " | Mute: " + SFXSource.mute);
+            Debug.Log("Playing SFX: " + clip.name + " | Volume: " + SFXSource.volume + " | Mute: " + SFXSource.mute);
             SFXSource.PlayOneShot(clip);
         }
         else
@@ -111,17 +117,15 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-
     public void PlayDamage() => PlaySFX(damage);
     public void PlayKey() => PlaySFX(key);
     public void PlayPowerup() => PlaySFX(powerup);
     public void PlayWalking() => PlaySFX(walking);
-    public void PlayJump()=> PlaySFX(jump);
+    public void PlayJump() => PlaySFX(jump);
     public void PlayClick() => PlaySFX(click);
     public void PlayWin() => PlaySFX(win);
     public void PlayLost() => PlaySFX(lost);
 
-    //Walking
     public void StartWalking()
     {
         if (!walkingSource.isPlaying && walking != null)
@@ -139,5 +143,4 @@ public class AudioManager : MonoBehaviour
             walkingSource.Stop();
         }
     }
-
 }
