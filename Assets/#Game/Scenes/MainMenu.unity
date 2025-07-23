@@ -1276,6 +1276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd76e57812c76ff4b857904d8fdd5bcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseMenuUI: {fileID: 0}
 --- !u!4 &602018792
 Transform:
   m_ObjectHideFlags: 0
@@ -2821,7 +2822,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 602018793}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: closeapp
+        m_MethodName: CloseApp
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
